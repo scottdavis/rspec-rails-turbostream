@@ -22,6 +22,10 @@ module RSpec
           @assertions.compact.all?
         end
 
+        def match(expected, actual)
+          match?
+        end
+
         private
 
         def match_turbostream
