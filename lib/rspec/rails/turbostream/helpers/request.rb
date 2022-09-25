@@ -5,31 +5,32 @@ module RSpec
         module Request
           TURBO_MIME = 'text/vnd.turbo-stream.html'.freeze
 
-          def turbo_post(*args)
-            post(*turbo_header(*args))
+          def turbo_post(location, args)
+            new_args = turbo_header(args)
+            post(location, **new_args)
           end
 
-          def turbo_get(*args)
-            get(*turbo_header(*args))
+          def turbo_get(location, args)
+            new_args = turbo_header(args)
+            get(location, **new_args)
           end
 
-          def turbo_put(*args)
-            put(*turbo_header(*args))
+          def turbo_put(location, args)
+            new_args = turbo_header(args)
+            put(location, **new_args)
           end
 
-          def turbo_delete(*args)
-            delete(*turbo_header(*args))
+          def turbo_delete(location, args)
+            new_args = turbo_header(args)
+            delete(location, **new_args)
           end
 
           private
 
-          def turbo_header(*args)
-            if args.last.is_a?(Hash)
-              args.last[:headers] ||= {}
-              args.last[:headers][:Accept] = TURBO_MIME
-            else
-              args << { headers: { Accept: TURBO_MIME } }
-            end
+          def turbo_header(args = {})
+            puts args.inspect
+            args[:headers] ||= {}
+            args[:headers][:Accept] = TURBO_MIME
 
             args
           end
