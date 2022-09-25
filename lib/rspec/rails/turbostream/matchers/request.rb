@@ -1,10 +1,12 @@
 require 'nokogiri'
+require 'rails'
+require 'rspec-rails'
 module RSpec
   module Rails
     module Turbostream
       module Matchers
         module Request
-          class Base
+          class Base < RSpec::Rails::Matchers::BaseMatcher
             CONTENT_TYPE_HEADER = 'Content-Type'.freeze
             TURBO_STREAM_TAG = 'turbo-stream'.freeze
 

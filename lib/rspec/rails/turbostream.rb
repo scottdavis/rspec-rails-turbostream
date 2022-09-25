@@ -1,5 +1,5 @@
 require "rspec/rails/turbostream/version"
-
+require 'rspec/rails/matchers/base_matcher'
 module RSpec
   module Rails
     module Turbostream
