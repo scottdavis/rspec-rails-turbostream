@@ -13,6 +13,7 @@ module RSpec
           @action = action
           @target = target
           @assertions = []
+          @messages = []
           @response = scope.response
 
           match_turbostream
@@ -30,6 +31,10 @@ module RSpec
         def match(expected, actual)
           @scope = expected
           matches?(actual)
+        end
+
+        def failure_message
+          @messages.join(" and ")
         end
 
         private
@@ -50,23 +55,31 @@ module RSpec
         end
 
         def not_empty
-          @assertions << (!doc.css(TURBO_STREAM_TAG).empty?)
+          check = (!doc.css(TURBO_STREAM_TAG).empty?)
+          @messages << 'Did not incude a turbostream tag' if !check
+          @assertions << check
         end
 
         def match_headers
-          @assertions << (headers[CONTENT_TYPE_HEADER].include?(RSpec::Rails::Turbostream::Helpers::Request::TURBO_MIME))
+          check = (headers[CONTENT_TYPE_HEADER].include?(RSpec::Rails::Turbostream::Helpers::Request::TURBO_MIME))
+          @messages << 'Does not contain turbostream header' if !check
+          @assertions << check
         end
 
         def match_target
           return if target.nil?
 
-          @assertions << (!doc.css("#{TURBO_STREAM_TAG}[target='#{target}']").empty?)
+          check = (!doc.css("#{TURBO_STREAM_TAG}[target='#{target}']").empty?)
+          @messages << "Does not match target of #{target}" if !check
+          @assertions << check
         end
 
         def match_action
           return if action.nil?
 
-          @assertions << (!doc.css("#{TURBO_STREAM_TAG}[action='#{action}']").empty?)
+          check = (!doc.css("#{TURBO_STREAM_TAG}[action='#{action}']").empty?)
+          @messages << "Does not match action of #{action}" if !check
+          @assertions << check
         end
       end
 
