@@ -69,7 +69,7 @@ module RSpec
       #   expect(response).to be_a_turbostream(:update, :search_results)
       #
       def be_a_turbostream(action = nil, target = nil)
-        Turbostream.new(self, action, target).match?
+        Turbostream.new(self, action, target)
       end
     end
   end
