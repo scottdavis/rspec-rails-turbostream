@@ -28,7 +28,6 @@ module RSpec
           private
 
           def turbo_header(args = {})
-            puts args.inspect
             args[:headers] ||= {}
             args[:headers][:Accept] = TURBO_MIME
 
