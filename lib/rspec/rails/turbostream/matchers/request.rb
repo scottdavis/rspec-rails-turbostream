@@ -22,8 +22,14 @@ module RSpec
           @assertions.compact.all?
         end
 
-        def match(expected, actual)
+        def matches?(actual)
+          @actual = actual
           match?
+        end
+
+        def match(expected, actual)
+          @scope = expected
+          matches?(actual)
         end
 
         private
