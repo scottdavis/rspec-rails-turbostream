@@ -1,5 +1,5 @@
-RSpec.describe RSpec::Rails::Turbostream::Matchers::Request do
-  subject { RSpec::Rails::Turbostream::Matchers::Request::Base.new(scope, action, target) }
+RSpec.describe RSpec::Rails::Matchers::Turbostream do
+  subject { RSpec::Rails::Matchers::Turbostream.new(scope, action, target) }
   let(:scope) do
     mocked_scope = double
     allow(mocked_scope).to receive(:response).and_return(response)
