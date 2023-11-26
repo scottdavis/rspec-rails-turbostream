@@ -12,5 +12,6 @@ end
 
 # Helpers
 require 'rspec/rails/turbostream/helpers/request'
+require 'rspec/rails/turbostream/helpers/feature'
 # Matchers
 require 'rspec/rails/turbostream/matchers/request'
